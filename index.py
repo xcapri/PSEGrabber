@@ -17,7 +17,7 @@ def Grab(id):
                 wEb =  tree.xpath('//*[@id="app-layout"]/div/div/div/div[2]/table/tbody/tr[4]/td[3]/text()')
                 for xWeb in wEb:
                     print(green+ "[200] " + xWeb + white)
-                    open("listpse.txt", "a").write(xWeb+"\n")
+                    open("listpse.txt", "a").write(xWeb.encode('utf-8')+"\n")
             except KeyboardInterrupt:
                 print(white, " Ctrl + C Detected..")
                 exit()
