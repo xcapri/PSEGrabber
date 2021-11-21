@@ -10,11 +10,11 @@ def Grab(id):
     
     try:
         getSource = requests.get('https://pse.kominfo.go.id/tdpse-detail/'+str(id))
-        tree = html.fromstring(getSource.content)
+        sor = html.fromstring(getSource.content)
     
         if 'Alamat' in getSource.text:
             try:
-                wEb =  tree.xpath('//*[@id="app-layout"]/div/div/div/div[2]/table/tbody/tr[4]/td[3]/text()')
+                wEb =  sor.xpath('//*[@id="app-layout"]/div/div/div/div[2]/table/tbody/tr[4]/td[3]/text()')
                 for xWeb in wEb:
                     print(green+ "[200] " + xWeb + white)
                     open("listpse.txt", "a").write(xWeb.encode('utf-8')+"\n")
@@ -28,10 +28,20 @@ def Grab(id):
         print(white+ " Ctrl + C Detected..")
         exit()
 
+
 def SETerdaftar():
-    for id in range(1,2417):
+    getLatest = requests.get('https://pse.kominfo.go.id/tdpse-terdaftar')
+    aHre = html.fromstring(getLatest.content)
+    Range = 0
+    lat = aHre.xpath('//*[@id="list-se"]/tbody/tr[1]/td[6]/a')
+    for xl in lat:        
+        all = xl.attrib['href']
+        alsl = (all.rsplit('/', 1)[1])
+        Range += int(alsl)+1
+    
+    for id in range(1,Range+1):
         Grab(str(id))
 
-
+    print(Range)
 
 SETerdaftar()
