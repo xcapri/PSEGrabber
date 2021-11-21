@@ -42,6 +42,5 @@ def SETerdaftar():
     for id in range(1,Range+1):
         Grab(str(id))
 
-    print(Range)
 
 SETerdaftar()
